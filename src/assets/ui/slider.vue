@@ -1,0 +1,120 @@
+<template>
+  <div class="slider">
+    <img :src="mainBanner" alt="banner" class="slider__banner" :height="height"/>
+    <div class="slider__btns-field">
+      <button @click="decrease()" class="slider__btn slider__btn_left">
+        <img src="@/assets/svg/right.svg" alt="skip" />
+      </button>
+      <button @click="increase()" class="slider__btn slider__btn_right">
+        <img src="@/assets/svg/left.svg" alt="skip" />
+      </button>
+    </div>
+    <li class="slider__points-field">
+      <ul
+        v-for="banner in banners"
+        :key="banner"
+        class="slider__point"
+        :class="{ 'slider__point_selected': banner === mainBanner }"
+      ></ul>
+    </li>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    banners: {
+      type: Array,
+      default: () => [],
+    },
+    height:{
+      type: Number,
+      default: 0
+    }
+  },
+  data: () => ({
+    mainBannerNum: 0,
+  }),
+  computed: {
+    mainBanner() {
+      return this.banners[this.mainBannerNum];
+    },
+  },
+  methods: {
+    increase() {
+      if (this.mainBannerNum + 1 >= this.banners.length) {
+        this.mainBannerNum = 0;
+        return;
+      }
+      this.mainBannerNum += 1;
+    },
+    decrease() {
+      if (this.mainBannerNum - 1 < 0) {
+        this.mainBannerNum = this.banners.length - 1;
+        return;
+      }
+      this.mainBannerNum -= 1;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.slider {
+  position: relative;
+}
+
+.slider__banner {
+  display: block;
+  width: 100%;
+}
+
+.slider__btns-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 50%;
+}
+
+.slider__btn {
+  height: 28px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.slider__btn_left{
+  margin-left: 20px;
+}
+
+.slider__btn_right{
+  margin-right: 20px;
+}
+
+.slider__points-field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  list-style: none;
+  bottom: 10%;
+}
+
+.slider__point {
+  margin-right: 9px;
+  height: 11px;
+  width: 11px;
+  border: 1px solid white;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.slider__point_selected {
+  background-color: white;
+}
+
+.slider__point:last-child {
+  margin-right: 0;
+}
+</style>

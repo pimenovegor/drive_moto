@@ -1,0 +1,83 @@
+<template>
+  <ul class="menu">
+    <li
+      v-for="category in categorys"
+      :key="category"
+      @click="setRoute(category)"
+      :class="{ 'menu__link_active-line': selectedType === category }"
+      class="menu__link"
+    >
+      {{ category }}
+    </li>
+  </ul>
+</template>
+
+<script>
+import { mapMutations, mapState } from "vuex";
+export default {
+  data: () => ({
+    categorys: [
+      "Квадроциклы",
+      "Катера",
+      "Гидроциклы",
+      "Лодки",
+      "Вездеходы",
+      "Снегоходы",
+      "Двигатели",
+      "Запчасти",
+    ],
+  }),
+  computed: {
+    ...mapState({
+      selectedType: (state) => state.products.selectedType,
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      setSelectedType: 'products/setSelectedType'
+    }),
+    setRoute(category){
+      this.setSelectedType(category)
+      this.$router.push('/products')
+    }
+  }
+};
+</script>
+
+<style scoped>
+.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 20px;
+  background-color: #f0f0f4;
+  height: 53px;
+  width: 100%;
+}
+
+.menu__link {
+  cursor: pointer;
+  padding: 15px 0 15px 0;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.menu__link:nth-child(1n) {
+  margin-left: 2px;
+}
+
+.menu__link:last-child {
+  margin-right: 2px;
+}
+
+.menu__link:hover {
+  border-bottom: 3px solid #1c62cd;
+}
+
+.menu__link_active-line{
+  font-weight: 600;
+  border-bottom: 3px solid #1c62cd;
+}
+</style>

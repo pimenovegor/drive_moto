@@ -1,30 +1,38 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <MainLayout />
+  <router-view />
+  <Footer />
 </template>
 
+<script>
+import MainLayout from "@/layouts/Main";
+import Footer from "./components/Footer.vue";
+import { mapActions } from "vuex";
+
+export default {
+  components: {
+    MainLayout,
+    Footer,
+  },
+  created() {
+    this.getProducts();
+  },
+  methods: {
+    ...mapActions({
+      getProducts: "products/getProducts",
+    }),
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import url("http://fonts.cdnfonts.com/css/sf-pro-display");
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "SF Pro Display", sans-serif;
+  font-style: normal;
+  color: #2f3035;
 }
 </style>
