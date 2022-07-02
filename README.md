@@ -1,5 +1,7 @@
 # drive_moto
 
+Pet проект по макету Figma с использованием облачной базы данных Firebase
+
 ## Project setup
 ```
 npm install
