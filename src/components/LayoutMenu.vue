@@ -3,7 +3,7 @@
     <li
       v-for="category in categorys"
       :key="category"
-      @click="setRoute(category)"
+      @click="this.$router.push({ name: 'Products', params: { category } })"
       :class="{ 'menu__link_active-line': selectedType === category }"
       class="menu__link"
     >
@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapState } from "vuex";
+
 export default {
   data: () => ({
     categorys: [
@@ -32,15 +33,6 @@ export default {
       selectedType: (state) => state.products.selectedType,
     }),
   },
-  methods: {
-    ...mapMutations({
-      setSelectedType: 'products/setSelectedType'
-    }),
-    setRoute(category){
-      this.setSelectedType(category)
-      this.$router.push('/products')
-    }
-  }
 };
 </script>
 
@@ -76,7 +68,7 @@ export default {
   border-bottom: 3px solid #1c62cd;
 }
 
-.menu__link_active-line{
+.menu__link_active-line {
   font-weight: 600;
   border-bottom: 3px solid #1c62cd;
 }

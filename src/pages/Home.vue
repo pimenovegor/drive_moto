@@ -16,14 +16,14 @@ import Category from "@/components/NavigationCategory.vue";
 import Search from "@/components/NavigationSearch.vue";
 import Promotion from "@/components/Promotion.vue";
 import slider from "@/assets/ui/slider.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   components: {
     slider,
     Promotion,
     Search,
-    Category
+    Category,
   },
   created() {
     this.getBanners();

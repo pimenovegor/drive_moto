@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .nav {
-  margin: 0px auto 0 auto;
+  margin: 0 auto 0 auto;
   display: flex;
   flex-direction: column;
   width: 90%;

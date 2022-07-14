@@ -3,7 +3,12 @@
     <li
       v-for="category in categorys"
       :key="category.name"
-      @click="setRoute(category.name)"
+      @click="
+        this.$router.push({
+          name: 'Products',
+          params: { category: category.name },
+        })
+      "
       class="card"
     >
       <div class="card__info">
@@ -16,7 +21,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
@@ -32,20 +36,10 @@ export default {
       { name: "Двигатели", picture: require("@/assets/svg/engine.svg") },
     ],
   }),
-  methods: {
-    ...mapMutations({
-      setSelectedType: "products/setSelectedType",
-    }),
-    setRoute(category) {
-      this.setSelectedType(category);
-      this.$router.push("/products");
-    },
-  },
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@700&display=swap");
 .category {
   list-style: none;
   display: flex;

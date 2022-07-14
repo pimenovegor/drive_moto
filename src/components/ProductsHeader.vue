@@ -1,16 +1,7 @@
 <template>
   <header class="header">
-    <div class="path">
-      <span @click="this.$router.push('/')" class="path__position">Главная</span
-      ><img
-        src="@/assets/svg/pointer.svg"
-        alt="pointer"
-        class="path__pointer"
-      /><span class="path__position">{{ typeProduct || search.text}}</span>
-    </div>
-
+    <Path />
     <h1 class="main__type-product">{{ typeProduct || search.text }}</h1>
-
     <select
       :value="sort"
       @change="setSort($event.target.value)"
@@ -29,13 +20,15 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
+import Path from "@/components/Path.vue";
 
 export default {
+  components: { Path },
   computed: {
     ...mapState({
       typeProduct: (state) => state.products.selectedType,
       sort: (state) => state.products.sort,
-      search: (state)=> state.products.search
+      search: (state) => state.products.search,
     }),
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
- <Header />
+  <Header />
   <main class="main">
     <Options />
     <ProductsList />
@@ -8,14 +8,56 @@
 
 <script>
 import Options from "@/components/Options.vue";
-import Header from "@/components/Header.vue";
+import Header from "@/components/ProductsHeader.vue";
 import ProductsList from "@/components/ProductsList.vue";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   components: {
     Options,
     Header,
     ProductsList,
+  },
+  created() {
+    this.setData(this.$route);
+    this.getProducts({
+      min: 0,
+      max: 10
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.resetFilters();
+    this.setData(to);
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.name !== "Product-detail") {
+      this.setSearch({});
+      this.setSelectedType("");
+    }
+    this.resetFilters();
+    next();
+  },
+  methods: {
+    ...mapActions({
+      getProducts: "products/getProducts",
+    }),
+    ...mapMutations({
+      setSelectedType: "products/setSelectedType",
+      setSearch: "products/setSearch",
+      resetFilters: "products/resetFilters",
+    }),
+    setData(route) {
+      if (route.name === "Products") {
+        this.setSelectedType(route.params.category);
+      }
+      if (route.name === "Search-products") {
+        this.setSearch({
+          option: route.params.option,
+          text: route.params.text,
+        });
+      }
+    },
   },
 };
 </script>

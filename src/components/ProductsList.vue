@@ -1,6 +1,16 @@
 <template>
   <ul class="list">
-    <li v-for="product in products" :key="product.id" class="product">
+    <li
+      v-for="product in products"
+      :key="product.id"
+      @click="
+        this.$router.push({
+          name: 'Product-detail',
+          params: { id: product.id },
+        })
+      "
+      class="product"
+    >
       <header class="product__header">
         <span
           :class="{ product__sale_show: product.sale }"
@@ -80,6 +90,7 @@ export default {
 }
 
 .product__header {
+  margin-left: -0.5px;
   display: flex;
   justify-content: space-between;
 }
@@ -142,6 +153,7 @@ export default {
 }
 
 .product__btn-basket {
+  margin: auto -0.5px -0.5px 0;
   cursor: pointer;
   align-self: flex-end;
   width: 60px;

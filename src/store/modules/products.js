@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   state: {
     products: [],
-    selectedType: localStorage.selectedType,
+    selectedType: "",
     sort: "По популярности",
     priceRange: [],
     selectedOptions: [],
@@ -11,13 +11,13 @@ export default {
       option: "",
       text: "",
     },
+    selectedProduct: {},
   },
   mutations: {
     setProducts(state, products) {
       state.products = products;
     },
     setSelectedType(state, selectedType) {
-      localStorage.selectedType = selectedType;
       state.selectedType = selectedType;
     },
     setSort(state, sort) {
@@ -38,6 +38,9 @@ export default {
     },
     setSearch(state, search) {
       state.search = search;
+    },
+    setSelectedProduct(state, product) {
+      state.selectedProduct = product;
     },
   },
   getters: {
@@ -61,9 +64,14 @@ export default {
         return getters.typeFilter?.sort((a, b) => a.price - b.price);
       if (state.sort === "По убыванию")
         return getters.typeFilter?.sort((a, b) => b.price - a.price);
+      if (state.sort === "По популярности")
+        return getters.typeFilter?.sort((a, b) => b.id - a.id);
       return getters.typeFilter;
     },
     typeFilter(state, getters) {
+      if (state.selectedType === "Товары") {
+        return getters.searchFilter;
+      }
       return (
         getters.searchFilter?.filter(
           (item) =>
@@ -86,6 +94,7 @@ export default {
         name: item.brand,
         value: item.brand,
       }));
+      // метод вовращает все бренды без фильтра повторения, поэтому далее сделаем все значания уникальными
 
       const filtedBrands = [];
       brands.forEach((item) => {
@@ -98,6 +107,13 @@ export default {
         }
       });
       return filtedBrands;
+    },
+    models(state, getters) {
+      return getters.typeFilter.map((item) => ({
+        bdName: "model",
+        name: item.model,
+        value: item.model,
+      }));
     },
     maxPrice(state, getters) {
       return (
@@ -113,17 +129,42 @@ export default {
     },
   },
   actions: {
-    getProducts: async (context) => {
+    getProducts: async (context, { min, max }) => {
       try {
         const res = await axios.get(
-          "https://drive-moto-64147-default-rtdb.firebaseio.com/products.json",
+          `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json?orderBy="$key"&startAt="${min}"&endAt="${max}"`,
           {
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
-        context.commit("setProducts", res.data);
+
+        // преобразование обьекта в массив
+        const resArr = []; 
+        for (let el in res.data) {
+          resArr.push(res.data[el])
+        }
+
+        context.commit("setProducts", resArr);
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+    getProductById: async (context, id) => {
+      try {
+        const res = await axios.get(
+          `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json?orderBy="id"&equalTo=${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const key = Object.keys(res.data)[0]; // firebase возвращает данные с индексом из массива в самой бд
+        context.commit("setSelectedProduct", res.data[key]);
       } catch (error) {
         console.log(error);
         throw error;

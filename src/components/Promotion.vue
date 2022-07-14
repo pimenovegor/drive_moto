@@ -1,5 +1,13 @@
 <template>
-  <article class="promotion">
+  <article
+    class="promotion"
+    @click="
+      this.$router.push({
+        name: 'Product-detail',
+        params: { id: product.id },
+      })
+    "
+  >
     <section class="info">
       <h2 class="info__title">Акция</h2>
       <div class="prices-block">
@@ -36,10 +44,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Proxima+Nova");
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@700&family=Roboto:wght@400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Barlow&display=swap");
-
 .promotion {
   cursor: pointer;
   display: flex;
@@ -54,6 +58,8 @@ export default {
 }
 
 .info__title {
+  margin-left: -0.5px;
+  border-radius: 3px 0 0 0;
   align-self: flex-start;
   width: 90px;
   background: #1c62cd;
@@ -123,6 +129,8 @@ export default {
 }
 
 .date-block {
+  margin: 0 0 -0.5px -0.5px;
+  border-radius: 0 0 3px 3px;
   flex: 2;
   max-height: 100px;
   background: #f0f0f4;

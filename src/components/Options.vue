@@ -4,7 +4,9 @@
     <OptionsDefault :name="'Наличие'" :options="availabilityOptions" />
     <OptionsDefault :name="'Новинки'" :options="noveltyOptions" />
     <OptionsPrice />
-    <OptionsDefault :name="'Бренды'" :options="brandOptions" />
+    <OptionsDefault :name="'Бренд'" :options="brandOptions" />
+    <OptionsDefault :name="'Модель'" :options="modelOptions" />
+    <button @click="resetFilters()" class="card__btn">Сбросить фильтр</button>
   </section>
 </template>
 
@@ -31,13 +33,8 @@ export default {
   computed: {
     ...mapGetters({
       brandOptions: "products/brands",
-      typeFilter: "products/typeFilter",
+      modelOptions: "products/models",
     }),
-  },
-  watch: {
-    typeFilter() {
-      this.resetFilters();
-    },
   },
   methods: {
     ...mapMutations({
@@ -62,5 +59,21 @@ export default {
   text-transform: uppercase;
   border-bottom: 2px solid #1c62cd;
   margin-bottom: 41px;
+}
+
+.card__btn {
+  display: block;
+  margin: 46px auto 0 auto;
+  border: none;
+  outline: none;
+  background: white;
+  font-family: "SF Pro Display";
+  font-weight: 400;
+  font-size: 13px;
+  text-decoration-line: underline;
+  color: #c4c4c4;
+}
+.card__btn:hover{
+  opacity: 0.6;
 }
 </style>

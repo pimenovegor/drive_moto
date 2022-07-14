@@ -1,18 +1,31 @@
 <template>
   <section class="info">
     <div class="links-block">
-      <a href="/" class="links-block__link">Магазины</a>
-      <a href="/" class="links-block__link">Акции</a>
-      <a href="/" class="links-block__link">Доставка и оплата</a>
+      <a @click="routeSale()" class="links-block__link">Акции</a>
+      <a @click="routeAll()" class="links-block__link">Все товары</a>
+      <a @click="this.$router.push({ name: 'Home' })" class="links-block__link"
+        >Главная</a
+      >
     </div>
-    <img src="@/assets/svg/logo.svg" alt="Drive moto" class="info__logo" @click="this.$router.push('/')"/>
+
+    <img
+      src="@/assets/svg/logo.svg"
+      alt="Drive moto"
+      class="info__logo"
+      @click="this.$router.push('/')"
+    />
+
     <div class="links-block">
-      <a href="https://yandex.ru/maps/-/CCUJV2wbKB" target="_blank" class="links-block__link">
+      <a
+        href="https://yandex.ru/maps/-/CCUJV2wbKB"
+        target="_blank"
+        class="links-block__link"
+      >
         <img src="@/assets/svg/location.svg" alt="location logo" />
         Москва, ул. Науки 25
       </a>
       <div class="img-links">
-        <a href="/"  class="img-links__link">
+        <a href="/" class="img-links__link">
           <img src="@/assets/svg/liked.svg" alt="liked logo" />
         </a>
         <a href="/" class="img-links__link"
@@ -28,16 +41,36 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
-  components: {},
-  data: () => ({}),
+  methods: {
+    ...mapMutations({
+      pushSelectedOptions: "products/pushSelectedOptions",
+      resetFilters: "products/resetFilters",
+    }),
+    routeAll() {
+      this.resetFilters();
+      this.$router.push({
+        name: "Products",
+        params: { category: "Товары" },
+      });
+    },
+    routeSale() {
+      this.pushSelectedOptions({
+        bdName: "sale",
+        name: "Акции",
+        value: true,
+      });
+      this.$router.push({ name: "Products", params: { category: "Товары" } });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .info {
   width: 100%;
-  height: 101px;
   margin-bottom: 21px;
   display: flex;
   justify-content: space-between;
@@ -57,6 +90,7 @@ export default {
 }
 
 .links-block__link {
+  cursor: pointer;
   text-decoration: none;
   font-weight: 700;
   font-size: 20px;
@@ -66,13 +100,13 @@ export default {
   width: 120px;
 }
 
-.img-links__link{
+.img-links__link {
   margin: 5px;
   text-decoration: none;
   font-weight: 700;
   font-size: 20px;
-   background-size: 100% 100%;
-   width: 100px;
+  background-size: 100% 100%;
+  width: 100px;
 }
 
 .img-links__link_basket {

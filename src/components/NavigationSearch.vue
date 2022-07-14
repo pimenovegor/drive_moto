@@ -5,7 +5,9 @@
         v-for="option in options"
         :key="option.id"
         @click="selectedOption = option"
-        :class="{ 'select-field__option_selected': selectedOption.id === option.id }"
+        :class="{
+          'select-field__option_selected': selectedOption.id === option.id,
+        }"
         class="select-field__option"
       >
         {{ option.name }}
@@ -17,13 +19,21 @@
       type="text"
       class="search-input"
     />
-    <button @click="search()" class="btn">искать</button>
+    <button
+      @click="
+        this.$router.push({
+          name: 'Search-products',
+          params: { option: selectedOption?.id , text: searchText},
+        })
+      "
+      class="btn"
+    >
+      искать
+    </button>
   </section>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-
 export default {
   data: () => ({
     options: [
@@ -42,19 +52,6 @@ export default {
     },
     searchText: "",
   }),
-  computed: {},
-  methods: {
-    ...mapMutations({
-      setSearch: "products/setSearch",
-    }),
-    search() {
-      this.setSearch({
-        option: this.selectedOption?.id,
-        text: this.searchText,
-      });
-      this.$router.push("/products");
-    },
-  },
 };
 </script>
 

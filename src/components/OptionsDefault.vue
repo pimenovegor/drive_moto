@@ -30,6 +30,7 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
+
 export default {
   props: {
     options: {
@@ -109,6 +110,14 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 41px;
+}
+
+.options__param{
+  margin-bottom: 20px;
+}
+
+.options__param:nth-last-child(-n+2){
+  margin-bottom: 0;
 }
 
 .options__label {
