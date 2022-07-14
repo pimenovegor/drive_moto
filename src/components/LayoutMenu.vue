@@ -69,7 +69,7 @@ export default {
 }
 
 .menu__link_active-line {
-  font-weight: 600;
+  font-weight: 700;
   border-bottom: 3px solid #1c62cd;
 }
 </style>

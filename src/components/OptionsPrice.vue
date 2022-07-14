@@ -123,7 +123,7 @@ export default {
   display: inline-block;
   margin-bottom: 19px;
   font-family: "SF Pro Display";
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
 }
 

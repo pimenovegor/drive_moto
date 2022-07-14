@@ -124,9 +124,6 @@ export default {
         }, 0) + 1
       );
     },
-    promProduct(state) {
-      return state.products?.find((item) => item?.promotion === true) ?? [];
-    },
   },
   actions: {
     getProducts: async (context, { min, max }) => {

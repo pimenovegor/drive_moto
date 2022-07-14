@@ -2,7 +2,7 @@
   <main class="main">
     <section class="info">
       <slider :banners="banners" class="info__slider" :height="450" />
-      <Promotion class="info__promotion" />
+      <Promotion :product="promProduct" class="info__promotion" />
     </section>
     <nav class="nav">
       <Search />
@@ -16,7 +16,7 @@ import Category from "@/components/NavigationCategory.vue";
 import Search from "@/components/NavigationSearch.vue";
 import Promotion from "@/components/Promotion.vue";
 import slider from "@/assets/ui/slider.vue";
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -27,15 +27,18 @@ export default {
   },
   created() {
     this.getBanners();
+    this.getPromProduct();
   },
   computed: {
     ...mapState({
       banners: (state) => state.banners.banners,
+      promProduct: (state) => state.banners.promProduct,
     }),
   },
   methods: {
     ...mapActions({
       getBanners: "banners/getBanners",
+      getPromProduct: "banners/getPromProduct",
     }),
   },
 };

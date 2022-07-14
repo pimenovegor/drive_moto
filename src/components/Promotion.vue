@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters({
-      product: "products/promProduct",
-    }),
+  props: {
+    product: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 };
 </script>
