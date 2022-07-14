@@ -1,5 +1,5 @@
 # drive_moto
-https://pimenovegor.github.io/drive_moto/
+Посмотреть проект: https://pimenovegor.github.io/drive_moto/
 
 
 Pet проект по макету Figma с использованием облачной базы данных Firebase
