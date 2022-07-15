@@ -33,7 +33,7 @@
       <img src="@/assets/svg/basket-white.svg" alt="basket" />
     </button>
     <span v-else class="product__availability"> нет в наличии </span>
-    
+
     <span class="product__hover-info">Посмотреть товар</span>
   </li>
 </template>
@@ -86,6 +86,7 @@ export default {
 }
 
 .product__sale {
+  margin-top: -0.5px;
   align-self: flex-start;
   padding: 8px 15px 8px 15px;
   visibility: hidden;
@@ -113,13 +114,13 @@ export default {
 }
 
 .product__img {
+  margin: auto 11px auto 11px;
   display: inline-block;
-  height: 190px;
-  margin: 14px 11px 24px 11px;
+  max-height: 230px;
 }
 
 .product__name {
-  margin: 0 21px 25px 21px;
+  margin: 20px 21px 25px 21px;
   font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 18px;
@@ -143,7 +144,7 @@ export default {
 }
 
 .product__btn-basket {
-  margin: auto -0.5px -0.5px 0;
+  margin: 10px -0.5px -0.5px 0;
   cursor: pointer;
   align-self: flex-end;
   width: 60px;

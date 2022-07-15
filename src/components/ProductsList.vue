@@ -3,8 +3,8 @@
     <ul class="list">
       <ProductCard :products="pageProducts" />
     </ul>
-    
-    <ul class="switch">
+
+    <ul v-if="amountPages > 1" class="switch">
       <li
         v-for="number in amountPages"
         :key="number"
@@ -26,12 +26,9 @@ export default {
   components: {
     ProductCard,
   },
-  props: {
-    selectedPage: {
-      type: Number,
-      default: 1,
-    },
-  },
+  data: () => ({
+    selectedPage: 1,
+  }),
   computed: {
     ...mapGetters({
       products: "products/optionsFilter",
@@ -46,9 +43,14 @@ export default {
       );
     },
   },
+  watch: {
+    products() {
+      this.selectedPage=1
+    },
+  },
   methods: {
     onClickSwitch(page) {
-      this.$emit("change", page);
+      this.selectedPage=page
       window.scrollTo({
         top: 0,
         behavior: "smooth",

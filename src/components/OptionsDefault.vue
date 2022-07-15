@@ -1,5 +1,5 @@
 <template>
-  <optionsForm :name="name">
+  <optionsForm :name="name" class="options-form">
     <li v-for="option in options" :key="option.name" class="options__param">
       <input
         :id="option.name"
@@ -65,12 +65,13 @@ export default {
 </script>
 
 <style scoped>
-.options__param {
+.options-form{
   margin-bottom: 20px;
 }
 
-.options__param:nth-last-child(-n + 2) {
-  margin-bottom: 0;
+.options__param {
+  margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .options__label {

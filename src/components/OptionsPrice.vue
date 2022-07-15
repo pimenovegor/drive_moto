@@ -1,5 +1,5 @@
 <template>
-  <optionsForm :name="'Цена'">
+  <optionsForm :name="'Цена'" class="options-form">
     <Slider
       @change="setPriceRange($event)"
       :modelValue="priceRange"
@@ -66,6 +66,10 @@ export default {
 
 <style src="@vueform/slider/themes/default.css"></style>
 <style scoped>
+.options-form{
+  margin-bottom: 40px;
+}
+
 .slider {
   margin-top: 24px;
   width: 100%;

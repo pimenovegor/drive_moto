@@ -14,13 +14,14 @@
         {{ product.name }} {{ product.brand }} {{ product.model }}
       </h2>
       <span class="info__code">Код товара: {{ product.id }}</span>
+
       <table class="table">
         <tr>
           <th class="table__header">Характеристики</th>
         </tr>
         <tr v-for="feature in features" :key="feature" class="table__row">
-          <td>{{ feature.name }}</td>
-          <td>{{ feature.value }}</td>
+          <td class="table__param-name">{{ feature.name }}</td>
+          <td class="table__param-value">{{ feature.value }}</td>
         </tr>
       </table>
       <button
@@ -148,6 +149,14 @@ export default {
   margin-bottom: 15px;
   padding-bottom: 6px;
   border-bottom: 1px solid #d5d5d5;
+}
+
+.table__param-name{
+  margin-right: 50px;
+}
+
+.table__param-value{
+  text-align: end;
 }
 
 .limit-btn {
