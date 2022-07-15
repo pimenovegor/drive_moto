@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <img :src="mainBanner" alt="banner" class="slider__banner" :height="height"/>
+    <img :src="selectedBanner" alt="banner" class="slider__banner" :height="height"/>
     <div class="slider__btns-field">
       <button @click="decrease()" class="slider__btn slider__btn_left">
         <img src="@/assets/svg/right.svg" alt="skip" />
@@ -14,7 +14,7 @@
         v-for="banner in banners"
         :key="banner"
         class="slider__point"
-        :class="{ 'slider__point_selected': banner === mainBanner }"
+        :class="{ 'slider__point_selected': banner === selectedBanner }"
       ></ul>
     </li>
   </div>
@@ -33,27 +33,27 @@ export default {
     }
   },
   data: () => ({
-    mainBannerNum: 0,
+    selectedBannerNum: 0,
   }),
   computed: {
-    mainBanner() {
-      return this.banners[this.mainBannerNum];
+    selectedBanner() {
+      return this.banners[this.selectedBannerNum];
     },
   },
   methods: {
     increase() {
-      if (this.mainBannerNum + 1 >= this.banners.length) {
-        this.mainBannerNum = 0;
+      if (this.selectedBannerNum + 1 >= this.banners.length) {
+        this.selectedBannerNum = 0;
         return;
       }
-      this.mainBannerNum += 1;
+      this.selectedBannerNum += 1;
     },
     decrease() {
-      if (this.mainBannerNum - 1 < 0) {
-        this.mainBannerNum = this.banners.length - 1;
+      if (this.selectedBannerNum - 1 < 0) {
+        this.selectedBannerNum = this.banners.length - 1;
         return;
       }
-      this.mainBannerNum -= 1;
+      this.selectedBannerNum -= 1;
     },
   },
 };

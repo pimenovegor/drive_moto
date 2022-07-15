@@ -5,7 +5,6 @@
     <OptionsDefault :name="'Новинки'" :options="noveltyOptions" />
     <OptionsPrice />
     <OptionsDefault :name="'Бренд'" :options="brandOptions" />
-    <OptionsDefault :name="'Модель'" :options="modelOptions" />
     <button @click="resetFilters()" class="card__btn">Сбросить фильтр</button>
   </section>
 </template>
@@ -33,7 +32,6 @@ export default {
   computed: {
     ...mapGetters({
       brandOptions: "products/brands",
-      modelOptions: "products/models",
     }),
   },
   methods: {

@@ -108,13 +108,6 @@ export default {
       });
       return filtedBrands;
     },
-    models(state, getters) {
-      return getters.typeFilter.map((item) => ({
-        bdName: "model",
-        name: item.model,
-        value: item.model,
-      }));
-    },
     maxPrice(state, getters) {
       return (
         getters.typeFilter?.reduce((accumulator, currentValue) => {
@@ -126,10 +119,10 @@ export default {
     },
   },
   actions: {
-    getProducts: async (context, { min, max }) => {
+    getProducts: async (context) => {
       try {
         const res = await axios.get(
-          `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json?orderBy="$key"&startAt="${min}"&endAt="${max}"`,
+          `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -137,13 +130,7 @@ export default {
           }
         );
 
-        // преобразование обьекта в массив
-        const resArr = []; 
-        for (let el in res.data) {
-          resArr.push(res.data[el])
-        }
-
-        context.commit("setProducts", resArr);
+        context.commit("setProducts", res.data);
       } catch (error) {
         console.log(error);
         throw error;

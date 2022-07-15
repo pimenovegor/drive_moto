@@ -5,6 +5,7 @@
           >Главная</span
         >
       </li>
+
       <li v-if="typeProduct || search.text">
         <img
           src="@/assets/svg/pointer.svg"
@@ -16,6 +17,7 @@
           >{{ typeProduct || search.text }}</span
         >
       </li>
+      
       <li v-if="selectedProduct.name">
         <img
           src="@/assets/svg/pointer.svg"

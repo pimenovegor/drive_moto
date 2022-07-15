@@ -2,7 +2,10 @@
   <Header />
   <main class="main">
     <Options />
-    <ProductsList />
+    <ProductsList
+      :selectedPage="page"
+      @change="page = $event"
+    />
   </main>
 </template>
 
@@ -18,24 +21,30 @@ export default {
     Header,
     ProductsList,
   },
+  data: () => ({
+    page: 1,
+  }),
   created() {
     this.setData(this.$route);
-    this.getProducts({
-      min: 0,
-      max: 10
-    });
+    this.getProducts();
   },
   beforeRouteUpdate(to, from, next) {
+    this.page = 1;
     this.resetFilters();
     this.setData(to);
     next();
   },
   beforeRouteLeave(to, from, next) {
+    this.page = 1;
+    this.resetFilters();
+
     if (to.name !== "Product-detail") {
       this.setSearch({});
       this.setSelectedType("");
     }
-    this.resetFilters();
+    if (to.name === "Products" || to.name === "Search-products") {
+      this.setData(to);
+    }
     next();
   },
   methods: {

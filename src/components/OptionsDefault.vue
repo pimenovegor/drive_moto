@@ -1,37 +1,27 @@
 <template>
-  <div class="options">
-    <button
-      @click="show = !show"
-      :id="btnId"
-      :style="{
-        background: `url(${require('@/assets/svg/Shape.svg')}) no-repeat`,
-      }"
-      :class="{ options__btn_revert: show === true }"
-      class="options__btn"
-    ></button>
-    <label :for="btnId" class="options__name">{{ name }}</label>
-    <ul v-if="show === true" class="options__list">
-      <li v-for="option in options" :key="option.name" class="options__param">
-        <input
-          :id="option.name"
-          type="checkbox"
-          :value="option"
-          :checked="checked(option)"
-          @change="change(option, $event.target.checked)"
-          class="options__checkbox"
-        />
-        <label :for="option.name" class="options__label">{{
-          option.name
-        }}</label>
-      </li>
-    </ul>
-  </div>
+  <optionsForm :name="name">
+    <li v-for="option in options" :key="option.name" class="options__param">
+      <input
+        :id="option.name"
+        type="checkbox"
+        :value="option"
+        :checked="checked(option)"
+        @change="change(option, $event.target.checked)"
+        class="options__checkbox"
+      />
+      <label :for="option.name" class="options__label">{{ option.name }}</label>
+    </li>
+  </optionsForm>
 </template>
 
 <script>
+import optionsForm from "@/assets/ui/options-form.vue";
 import { mapMutations, mapState } from "vuex";
 
 export default {
+  components: {
+    optionsForm,
+  },
   props: {
     options: {
       type: Array,
@@ -42,10 +32,6 @@ export default {
       default: "",
     },
   },
-  data: () => ({
-    show: false,
-    btnId: Math.random()
-  }),
   computed: {
     ...mapState({
       selectedOptions: (state) => state.products.selectedOptions,
@@ -79,44 +65,11 @@ export default {
 </script>
 
 <style scoped>
-.options__btn {
-  cursor: pointer;
-  width: 30px;
-  height: 16px;
-  outline: none;
-  border: 1px solid;
-  border-top: 7px solid;
-  border-color: transparent;
-}
-
-.options__btn_revert {
-  border-left: 14px solid transparent;
-  border-top: 3px solid transparent;
-  transform: rotate(180deg);
-}
-
-.options__name {
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 19px;
-  font-family: "SF Pro Display";
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.options__list {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 41px;
-}
-
-.options__param{
+.options__param {
   margin-bottom: 20px;
 }
 
-.options__param:nth-last-child(-n+2){
+.options__param:nth-last-child(-n + 2) {
   margin-bottom: 0;
 }
 
