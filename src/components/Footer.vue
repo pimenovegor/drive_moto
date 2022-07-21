@@ -30,28 +30,28 @@
     </ul>
 
     <ul class="social-medias">
-      <li
-        :style="{ background: `url(${require('@/assets/svg/instagram.svg')})` }"
-        class="social-medias__link"
-      ></li>
-      <li
-        :style="{ background: `url(${require('@/assets/svg/vk.svg')})` }"
-        class="social-medias__link"
-      ></li>
-      <li
-        :style="{ background: `url(${require('@/assets/svg/facebook.svg')})` }"
-        class="social-medias__link"
-      ></li>
-      <li
-        :style="{ background: `url(${require('@/assets/svg/youtube.svg')})` }"
-        class="social-medias__link"
-      ></li>
+      <li class="social-medias__link"><instagramIcon /></li>
+      <li class="social-medias__link"><vkIcon /></li>
+      <li class="social-medias__link"><facebookIcon /></li>
+      <li class="social-medias__link"><youtubeIcon /></li>
     </ul>
   </footer>
 </template>
 
 <script>
-export default {};
+import youtubeIcon from "@/assets/svg/youtubeIcon.vue";
+import vkIcon from "@/assets/svg/vkIcon.vue";
+import facebookIcon from "@/assets/svg/facebookIcon.vue";
+import instagramIcon from "@/assets/svg/instagramIcon.vue";
+
+export default {
+  components: {
+    youtubeIcon,
+    vkIcon,
+    facebookIcon,
+    instagramIcon,
+  },
+};
 </script>
 
 <style scoped>

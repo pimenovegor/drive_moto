@@ -14,12 +14,7 @@
       <span :class="{ product__sale_show: product.sale }" class="product__sale"
         >Акция</span
       >
-      <button
-        :style="{
-          background: `url(${require('@/assets/svg/liked.svg')}) no-repeat`,
-        }"
-        class="product__btn-like"
-      ></button>
+      <button class="product__btn-like"><likeIcon /></button>
     </header>
 
     <img :src="product.img" alt="product" class="product__img" />
@@ -29,8 +24,12 @@
     <span v-if="product.availability" class="product__price"
       >{{ product.price?.toLocaleString("ru-RU") }} ₽</span
     >
-    <button v-if="product.availability" class="product__btn-basket">
-      <img src="@/assets/svg/basket-white.svg" alt="basket" />
+    <button
+      @click.stop="addProductToBasket(product)"
+      v-if="product.availability"
+      class="product__btn-basket"
+    >
+      <basketIcon :color="'white'" />
     </button>
     <span v-else class="product__availability"> нет в наличии </span>
 
@@ -39,11 +38,41 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from "vuex";
+import likeIcon from "@/assets/svg/likeIcon.vue";
+import basketIcon from "@/assets/svg/basketIcon.vue";
+
 export default {
+  components: {
+    likeIcon,
+    basketIcon,
+  },
   props: {
     products: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  computed: {
+    ...mapState({
+      auth: (state) => state.auth.auth,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      addProduct: "basket/addProduct",
+      getBasket: "basket/getBasket",
+    }),
+    ...mapMutations({
+      setShowAuth: "auth/setShowAuth",
+    }),
+    async addProductToBasket(product) {
+      if (this.auth) {
+        await this.addProduct({ product });
+        this.getBasket();
+      } else {
+        this.setShowAuth(true);
+      }
     },
   },
 };
@@ -111,6 +140,7 @@ export default {
   outline: none;
   width: 28px;
   height: 26px;
+  background: none;
 }
 
 .product__img {
@@ -153,6 +183,10 @@ export default {
   outline: none;
   background: #1c62cd;
   border-radius: 10px 0px 0px 0px;
+}
+
+.product__btn-basket:active {
+  opacity: 0.6;
 }
 
 .product__hover-info {

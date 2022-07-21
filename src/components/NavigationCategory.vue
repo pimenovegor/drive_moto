@@ -21,19 +21,18 @@
 </template>
 
 <script>
-
 export default {
   data: () => ({
     categorys: [
-      { name: "Квадроциклы", picture: require("@/assets/svg/ATV.svg") },
-      { name: "Гидроциклы", picture: require("@/assets/svg/jet_ski.svg") },
-      { name: "Катера", picture: require("@/assets/svg/boat.svg") },
-      { name: "Снегоходы", picture: require("@/assets/svg/snowmobile.svg") },
+      { name: "Квадроциклы", picture: require("@/assets/img/ATV.png") },
+      { name: "Гидроциклы", picture: require("@/assets/img/jet_ski.png") },
+      { name: "Катера", picture: require("@/assets/img/boat.png") },
+      { name: "Снегоходы", picture: require("@/assets/img/snowmobile.png") },
       {
         name: "Вездеходы",
-        picture: require("@/assets/svg/all-terrain_vehicle.svg"),
+        picture: require("@/assets/img/all-terrain_vehicle.png"),
       },
-      { name: "Двигатели", picture: require("@/assets/svg/engine.svg") },
+      { name: "Двигатели", picture: require("@/assets/img/engine.png") },
     ],
   }),
 };
@@ -98,6 +97,6 @@ export default {
 
 .picture {
   margin: 12px 20px 12px 0;
-  width: 150px;
+  max-width: 50%;
 }
 </style>

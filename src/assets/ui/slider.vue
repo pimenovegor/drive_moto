@@ -1,12 +1,17 @@
 <template>
   <div class="slider">
-    <img :src="selectedBanner" alt="banner" class="slider__banner" :height="height"/>
+    <img
+      :src="selectedBanner"
+      alt="banner"
+      class="slider__banner"
+      :height="height"
+    />
     <div class="slider__btns-field">
       <button @click="decrease()" class="slider__btn slider__btn_left">
-        <img src="@/assets/svg/right.svg" alt="skip" />
+        <rightIcon />
       </button>
       <button @click="increase()" class="slider__btn slider__btn_right">
-        <img src="@/assets/svg/left.svg" alt="skip" />
+        <leftIcon />
       </button>
     </div>
     <li class="slider__points-field">
@@ -14,23 +19,30 @@
         v-for="banner in banners"
         :key="banner"
         class="slider__point"
-        :class="{ 'slider__point_selected': banner === selectedBanner }"
+        :class="{ slider__point_selected: banner === selectedBanner }"
       ></ul>
     </li>
   </div>
 </template>
 
 <script>
+import leftIcon from "@/assets/svg/leftIcon.vue";
+import rightIcon from "@/assets/svg/rightIcon.vue";
+
 export default {
+  components: {
+    leftIcon,
+    rightIcon,
+  },
   props: {
     banners: {
       type: Array,
       default: () => [],
     },
-    height:{
+    height: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data: () => ({
     selectedBannerNum: 0,
@@ -84,11 +96,11 @@ export default {
   border: none;
 }
 
-.slider__btn_left{
+.slider__btn_left {
   margin-left: 20px;
 }
 
-.slider__btn_right{
+.slider__btn_right {
   margin-right: 20px;
 }
 

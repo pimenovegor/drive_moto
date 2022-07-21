@@ -9,7 +9,7 @@
     </div>
 
     <img
-      src="@/assets/svg/logo.svg"
+      src="@/assets/img/logo.png"
       alt="Drive moto"
       class="info__logo"
       @click="this.$router.push('/')"
@@ -21,19 +21,22 @@
         target="_blank"
         class="links-block__link"
       >
-        <img src="@/assets/svg/location.svg" alt="location logo" />
+        <locationIcon />
         Москва, ул. Науки 25
       </a>
+
       <div class="img-links">
         <a href="/" class="img-links__link">
-          <img src="@/assets/svg/liked.svg" alt="liked logo" />
+          <likeIcon />
         </a>
-        <a href="/" class="img-links__link"
-          ><img src="@/assets/svg/profile.svg" alt="profile logo" />
+        <a @click="setShowAuth(true)" class="img-links__link"
+          ><profileIcon />
         </a>
-        <a href="/" class="img-links__link img-links__link_basket"
-          ><img src="@/assets/svg/basket.svg" alt="basket logo" />
-          <p class="basket-amount">1</p>
+        <a
+          @click="auth ? setShowBasket(true) : setShowAuth(true)"
+          class="img-links__link img-links__link_basket"
+          ><basketIcon />
+          <p v-if="basketLength" class="basket-amount">{{ basketLength }}</p>
         </a>
       </div>
     </div>
@@ -41,13 +44,33 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import likeIcon from "@/assets/svg/likeIcon.vue";
+import profileIcon from "@/assets/svg/profileIcon.vue";
+import basketIcon from "@/assets/svg/basketIcon.vue";
+import locationIcon from "@/assets/svg/locationIcon.vue";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
+  components: {
+    likeIcon,
+    profileIcon,
+    basketIcon,
+    locationIcon,
+  },
+  computed: {
+    ...mapState({
+      auth: (state) => state.auth.auth,
+    }),
+    ...mapGetters({
+      basketLength: "basket/basketLength",
+    }),
+  },
   methods: {
     ...mapMutations({
       pushSelectedOptions: "products/pushSelectedOptions",
       resetFilters: "products/resetFilters",
+      setShowAuth: "auth/setShowAuth",
+      setShowBasket: "basket/setShowBasket",
     }),
     routeAll() {
       this.resetFilters();

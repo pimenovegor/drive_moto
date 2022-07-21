@@ -3,6 +3,7 @@ import axios from "axios";
 export default {
   state: {
     products: [],
+    promProduct: {},
     selectedType: "",
     sort: "По популярности",
     priceRange: [],
@@ -41,6 +42,9 @@ export default {
     },
     setSelectedProduct(state, product) {
       state.selectedProduct = product;
+    },
+    setPromProduct(state, product) {
+      state.promProduct = product;
     },
   },
   getters: {
@@ -130,7 +134,7 @@ export default {
           }
         );
 
-        context.commit("setProducts", res.data);
+        context.commit("setProducts", res?.data ?? []);
       } catch (error) {
         console.log(error);
         throw error;
@@ -147,8 +151,26 @@ export default {
           }
         );
 
-        const key = Object.keys(res.data)[0]; // firebase возвращает данные с индексом из массива в самой бд
-        context.commit("setSelectedProduct", res.data[key]);
+        const key = Object.keys(res?.data)[0] ?? 0; // firebase возвращает данные с индексом из массива в самой бд
+        context.commit("setSelectedProduct", res?.data[key] ?? {});
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+    getPromProduct: async (context) => {
+      try {
+        const res = await axios.get(
+          `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json?orderBy="promotion"&equalTo=true`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const key = Object.keys(res?.data)[0] ?? 0; // firebase возвращает данные с индексом из массива в самой бд
+        context.commit("setPromProduct", res?.data[key] ?? {});
       } catch (error) {
         console.log(error);
         throw error;

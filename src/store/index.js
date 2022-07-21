@@ -1,10 +1,12 @@
 import { createStore } from 'vuex'
-import banners from './modules/banners'
 import products from './modules/products'
+import auth from './modules/auth'
+import basket from './modules/basket'
 
 export default createStore({
   modules: {
-    banners,
-    products
+    products,
+    auth,
+    basket
   }
 })

@@ -25,20 +25,20 @@ export default {
     Search,
     Category,
   },
+  data: () => ({
+    banners: [require('@/assets/img/banner1.png'), require('@/assets/img/banner2.jpg')],
+  }),
   created() {
-    this.getBanners();
     this.getPromProduct();
   },
   computed: {
     ...mapState({
-      banners: (state) => state.banners.banners,
-      promProduct: (state) => state.banners.promProduct,
+      promProduct: (state) => state.products.promProduct,
     }),
   },
   methods: {
     ...mapActions({
-      getBanners: "banners/getBanners",
-      getPromProduct: "banners/getPromProduct",
+      getPromProduct: "products/getPromProduct",
     }),
   },
 };

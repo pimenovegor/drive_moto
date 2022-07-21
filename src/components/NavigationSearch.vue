@@ -1,6 +1,6 @@
 <template>
   <section class="search">
-    <ul class="select-field" name="" id="">
+    <ul class="select-field">
       <li
         v-for="option in options"
         :key="option.id"
@@ -23,7 +23,7 @@
       @click="
         this.$router.push({
           name: 'Search-products',
-          params: { option: selectedOption?.id , text: searchText},
+          params: { option: selectedOption?.id, text: searchText },
         })
       "
       class="btn"
