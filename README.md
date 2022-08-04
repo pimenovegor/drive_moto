@@ -2,7 +2,7 @@
 Посмотреть проект: https://pimenovegor.github.io/drive_moto/
 
 
-Pet проект по макету Figma с использованием облачной базы данных Firebase
+Интернет-магазин по макету Figma с использованием REST API Firebase
 
 ## Project setup
 ```
