@@ -12,7 +12,7 @@ export default {
 
 <style scoped>
 .background {
-  z-index: 2;
+  z-index: 60;
   display: flex;
   position: fixed;
   left: 0;

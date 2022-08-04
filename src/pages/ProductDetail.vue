@@ -1,17 +1,19 @@
 <template>
-  <header class="header">
-    <Path />
-  </header>
-  <main class="main">
-    <ProductInfo />
-  </main>
+  <div class="page">
+    <header class="header">
+      <Path />
+    </header>
+    <main class="main">
+      <ProductInfo />
+    </main>
+  </div>
 </template>
 
 <script>
 import Path from "@/components/Path.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
 import store from "@/store/index.js";
-import { mapMutations } from 'vuex';
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -19,37 +21,36 @@ export default {
     ProductInfo,
   },
   async beforeRouteEnter(to, from, next) {
-    await store.dispatch("products/getProductById", to.params.id);
+    await store.dispatch("products/getProductById", { id: to.params.id });
     next();
   },
   beforeRouteLeave(to, from, next) {
-    if(to.name !== "Products"){
-      this.setSearch({})
-      this.setSelectedType("")
-    }
     this.setSelectedProduct({});
     next();
   },
   methods: {
     ...mapMutations({
       setSelectedProduct: "products/setSelectedProduct",
-      setSearch: "products/setSearch",
-      setSelectedType: "products/setSelectedType",
     }),
   },
 };
 </script>
 
 <style scoped>
-.header {
+.page {
   margin-bottom: 47px;
-  width: 90%;
+  max-width: 1350px;
+  width: 95%;
   margin: 46px auto 0 auto;
 }
+@media (max-width: 1000px) {
+  .page{
+    margin-top: 145px;
+  }
+}
+
 
 .main {
-  display: flex;
-  width: 90%;
-  margin: 47px auto 0 auto;
+  margin-top: 47px;
 }
 </style>

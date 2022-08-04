@@ -4,9 +4,11 @@
       <span v-if="product.sale" class="review__sale">Акция</span>
       <img :src="product.img" alt="product" class="review__img" />
       <span v-if="product.old_price" class="review__old-price"
-        >{{ product.old_price }} ₽</span
+        >{{ product.old_price?.toLocaleString("ru-RU") }} ₽</span
       >
-      <span class="review__price">{{ product.price }} ₽</span>
+      <span class="review__price"
+        >{{ product.price?.toLocaleString("ru-RU") }} ₽</span
+      >
     </div>
 
     <div class="info">
@@ -15,7 +17,7 @@
       </h2>
       <span class="info__code">Код товара: {{ product.id }}</span>
 
-      <table class="table">
+      <table v-if="features" class="table">
         <tr>
           <th class="table__header">Характеристики</th>
         </tr>
@@ -31,13 +33,15 @@
       >
         {{ limitFeatures ? "Показать еще" : "Скрыть" }}
       </button>
-      <button class="buy-btn">Купить</button>
+
+      <button v-if="product.availability" @click="onAddProduct(product)" class="buy-btn">Купить</button>
+      <span v-else class="availability">нет в наличии</span>
     </div>
   </section>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
   data: () => ({
@@ -46,12 +50,36 @@ export default {
   computed: {
     ...mapState({
       product: (state) => state.products.selectedProduct,
+      auth: (state) => state.auth.auth,
+    }),
+    ...mapGetters({
+      findSameInBasket: "basket/findById",
     }),
     features() {
       if (this.limitFeatures) {
         return this.product.feature?.slice(0, 3);
       }
       return this.product.feature;
+    },
+  },
+  methods: {
+    ...mapActions({
+      addProduct: "basket/addProduct",
+      changeAmount: "basket/changeAmount",
+    }),
+    ...mapMutations({
+      setShowAuth: "setShowAuth",
+    }),
+    async onAddProduct(product) {
+      if (!this.auth) return this.setShowAuth(true);
+
+      const { key, amount } = this.findSameInBasket(product.id);
+      if (key && amount) {
+        await this.changeAmount({ key, amount: amount + 1 });
+        return;
+      }
+
+      await this.addProduct({ product });
     },
   },
 };
@@ -63,11 +91,24 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+@media (max-width: 1000px){
+  .product{
+    flex-direction: column;
+  }
+}
 
 .review {
   width: 45%;
+  height: 380px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+@media (max-width: 1000px){
+  .review{
+    width: 100%;
+    margin-bottom: 30px;
+  }
 }
 
 .review__sale {
@@ -83,8 +124,8 @@ export default {
 }
 
 .review__img {
-  max-width: 90%;
-  max-height: 500px;
+  align-self: center;
+  height: 70%;
 }
 
 .review__price {
@@ -117,6 +158,20 @@ export default {
 .info {
   width: 45%;
 }
+@media (max-width: 1000px){
+  .info{
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 1000px){
+  .info__name{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
 
 .info__code {
   display: inline-block;
@@ -151,11 +206,11 @@ export default {
   border-bottom: 1px solid #d5d5d5;
 }
 
-.table__param-name{
+.table__param-name {
   margin-right: 50px;
 }
 
-.table__param-value{
+.table__param-value {
   text-align: end;
 }
 
@@ -175,6 +230,7 @@ export default {
 }
 
 .buy-btn {
+  display: block;
   margin-top: 45px;
   font-family: "SF Pro Display";
   font-weight: 400;
@@ -187,5 +243,15 @@ export default {
   border: none;
   outline: none;
   padding: 17px 53px 17px 53px;
+}
+
+.buy-btn:active {
+  opacity: 0.6;
+}
+
+.availability{
+  display: block;
+  font-weight: 700;
+  margin-top: 50px;
 }
 </style>

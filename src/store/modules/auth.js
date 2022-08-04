@@ -2,13 +2,9 @@ import axios from "axios";
 
 export default {
   state: {
-    showAuth: false,
     auth: false,
   },
   mutations: {
-    setShowAuth(state, showAuth) {
-      state.showAuth = showAuth;
-    },
     setAuth(state, auth) {
       state.auth = auth;
     },

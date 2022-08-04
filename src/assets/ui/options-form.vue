@@ -4,7 +4,7 @@
       @click="show = !show"
       :id="btnId"
       :style="{
-        background: `url(${require('@/assets/svg/Shape.svg')}) no-repeat`,
+        background: `url(${require('@/assets/img/Shape.svg')}) no-repeat`,
       }"
       :class="{ options__btn_revert: show === true }"
       class="options__btn"
@@ -24,11 +24,18 @@ export default {
       type: String,
       default: "",
     },
+    open: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
-    show: true,
+    show: false,
     btnId: Math.random(),
   }),
+  created() {
+    this.show = this.open;
+  },
 };
 </script>
 

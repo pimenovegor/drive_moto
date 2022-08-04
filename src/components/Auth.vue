@@ -37,12 +37,14 @@ export default {
       logout: "auth/logout",
     }),
     ...mapMutations({
-      setShowAuth: "auth/setShowAuth",
-      setBasket: "basket/setBasket"
+      setShowAuth: "setShowAuth",
+      setBasket: "basket/setBasket",
+      setFavorite: "favorite/setFavorite"
     }),
     onLogout(){
       this.logout()
       this.setBasket({})
+      this.setFavorite({})
       this.setShowAuth(false)
     }
   },

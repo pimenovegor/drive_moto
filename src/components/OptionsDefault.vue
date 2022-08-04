@@ -1,5 +1,5 @@
 <template>
-  <optionsForm :name="name" class="options-form">
+  <optionsForm :name="name" :open="open" class="options-form">
     <li v-for="option in options" :key="option.name" class="options__param">
       <input
         :id="option.name"
@@ -30,6 +30,10 @@ export default {
     name: {
       type: String,
       default: "",
+    },
+    open: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -65,13 +69,17 @@ export default {
 </script>
 
 <style scoped>
-.options-form{
+.options-form {
   margin-bottom: 20px;
 }
 
 .options__param {
   margin-bottom: 20px;
-  margin-right: 10px;
+  width: 50%;
+}
+.options__param:nth-child(2n) {
+  margin-right: 0;
+  text-align: end;
 }
 
 .options__label {

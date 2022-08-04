@@ -24,15 +24,15 @@
 export default {
   data: () => ({
     categorys: [
-      { name: "Квадроциклы", picture: require("@/assets/img/ATV.png") },
-      { name: "Гидроциклы", picture: require("@/assets/img/jet_ski.png") },
-      { name: "Катера", picture: require("@/assets/img/boat.png") },
-      { name: "Снегоходы", picture: require("@/assets/img/snowmobile.png") },
+      { name: "Квадроциклы", picture: require("@/assets/img/ATV.svg") },
+      { name: "Гидроциклы", picture: require("@/assets/img/jet_ski.svg") },
+      { name: "Катера", picture: require("@/assets/img/boat.svg") },
+      { name: "Снегоходы", picture: require("@/assets/img/snowmobile.svg") },
       {
         name: "Вездеходы",
-        picture: require("@/assets/img/all-terrain_vehicle.png"),
+        picture: require("@/assets/img/all-terrain_vehicle.svg"),
       },
-      { name: "Двигатели", picture: require("@/assets/img/engine.png") },
+      { name: "Двигатели", picture: require("@/assets/img/engine.svg") },
     ],
   }),
 };
@@ -57,18 +57,24 @@ export default {
   border: 1px solid #cdcdcd;
   border-radius: 3px;
 }
-
 .card:nth-child(3n) {
   margin-right: 0;
 }
-
 .card:nth-last-child(-n + 3) {
   margin-bottom: 0;
 }
-
 .card:hover {
   border: none;
   box-shadow: 3px 3px 20px rgba(50, 50, 50, 0.25);
+}
+@media (max-width: 1000px) {
+  .card {
+    width: 80%;
+    margin: 0 0 20px 0;
+  }
+  .card:nth-last-child(-n + 3) {
+    margin-bottom: 20px;
+  }
 }
 
 .card:hover .name {
@@ -97,6 +103,6 @@ export default {
 
 .picture {
   margin: 12px 20px 12px 0;
-  max-width: 50%;
+  max-width: 40%;
 }
 </style>

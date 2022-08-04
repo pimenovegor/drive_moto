@@ -1,20 +1,12 @@
 <template>
-  <li
-    v-for="product in products"
-    :key="product.id"
-    @click="
-      this.$router.push({
-        name: 'Product-detail',
-        params: { id: product.id },
-      })
-    "
-    class="product"
-  >
+  <li class="product">
     <header class="product__header">
       <span :class="{ product__sale_show: product.sale }" class="product__sale"
         >Акция</span
       >
-      <button class="product__btn-like"><likeIcon /></button>
+      <button @click.stop="onFavorite(product)" class="product__btn-like">
+        <likeIcon :fill="favoriteKey ? 'black' : 'white'" />
+      </button>
     </header>
 
     <img :src="product.img" alt="product" class="product__img" />
@@ -25,7 +17,7 @@
       >{{ product.price?.toLocaleString("ru-RU") }} ₽</span
     >
     <button
-      @click.stop="addProductToBasket(product)"
+      @click.stop="onBasket(product)"
       v-if="product.availability"
       class="product__btn-basket"
     >
@@ -38,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import likeIcon from "@/assets/svg/likeIcon.vue";
 import basketIcon from "@/assets/svg/basketIcon.vue";
 
@@ -48,31 +40,53 @@ export default {
     basketIcon,
   },
   props: {
-    products: {
+    product: {
       type: Object,
-      default: () => ({}),
+      required: true,
     },
   },
   computed: {
     ...mapState({
       auth: (state) => state.auth.auth,
     }),
+    ...mapGetters({
+      findInBasket: "basket/findById",
+      findInFavorite: "favorite/findById",
+    }),
+    favoriteKey() {
+      return this.findInFavorite(this.product.id);
+    },
   },
   methods: {
     ...mapActions({
-      addProduct: "basket/addProduct",
-      getBasket: "basket/getBasket",
+      addToBasket: "basket/addProduct",
+      changeAmount: "basket/changeAmount",
+      addToFavorite: "favorite/addProduct",
+      deleteFromFavorite: "favorite/deleteProduct",
     }),
     ...mapMutations({
-      setShowAuth: "auth/setShowAuth",
+      setShowAuth: "setShowAuth",
     }),
-    async addProductToBasket(product) {
-      if (this.auth) {
-        await this.addProduct({ product });
-        this.getBasket();
-      } else {
-        this.setShowAuth(true);
+    async onBasket(product) {
+      if (!this.auth) return this.setShowAuth(true);
+
+      const { key, amount } = this.findInBasket(product.id);
+      if (key && amount) {
+        await this.changeAmount({ key, amount: amount + 1 });
+        return;
       }
+
+      await this.addToBasket({ product });
+    },
+    async onFavorite(product) {
+      if (!this.auth) return this.setShowAuth(true);
+
+      if (this.favoriteKey) {
+        this.deleteFromFavorite({ key: this.favoriteKey });
+        return;
+      }
+
+      await this.addToFavorite({ product });
     },
   },
 };
@@ -90,17 +104,43 @@ export default {
   border: 1px solid #cdcdcd;
   border-radius: 3px 3px 0 3px;
 }
-
 .product:nth-child(-n + 3) {
   margin-top: 0;
 }
 .product:nth-child(3n) {
   margin-right: 0;
 }
-
 .product:hover {
   border-color: transparent;
   box-shadow: 3px 3px 20px rgba(50, 50, 50, 0.25);
+}
+@media (max-width: 1300px) {
+  .product {
+    margin-right: 4%;
+    width: 48%;
+  }
+  .product:nth-child(2n) {
+    margin-right: 0;
+  }
+  .product:nth-child(3n) {
+    margin-right: auto;
+    margin-top: 29px;
+  }
+  .product:nth-child(-n + 2) {
+    margin-top: 0;
+  }
+}
+@media (max-width: 900px) {
+  .product {
+    margin-right: 0;
+    width: 100%;
+  }
+  .product:nth-child(-n + 3) {
+    margin-top: 29px;
+  }
+  .product:first-child {
+    margin-top: 0;
+  }
 }
 
 .product:hover .product__name,
@@ -144,9 +184,9 @@ export default {
 }
 
 .product__img {
-  margin: auto 11px auto 11px;
-  display: inline-block;
+  margin: auto;
   max-height: 230px;
+  max-width: 90%;
 }
 
 .product__name {

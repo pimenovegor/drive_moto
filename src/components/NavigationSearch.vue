@@ -64,6 +64,14 @@ export default {
   list-style: none;
   margin-bottom: 25px;
 }
+@media (max-width: 1000px) {
+  .select-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 .select-field__option {
   display: inline-block;
   font-family: "SF Pro Display";
@@ -72,12 +80,29 @@ export default {
   cursor: pointer;
   padding: 11px 26px 11px 26px;
 }
+@media (max-width: 1000px) {
+  .select-field__option {
+    margin-bottom: 13px;
+    padding: 0 0 5px 0;
+  }
+  .select-field__option:last-child{
+    margin-bottom: 0;
+  } 
+}
 
 .select-field__option_selected {
   background: #f0f0f4;
   border-radius: 5px;
   font-weight: 700;
 }
+@media (max-width: 1000px) {
+  .select-field__option_selected {
+    border-radius: 0;
+    background: white;
+    border-bottom: 3px solid#1c62cd;
+  }
+}
+
 
 .search-input {
   box-sizing: border-box;
@@ -91,6 +116,12 @@ export default {
   border: none;
   outline: none;
 }
+@media (max-width: 1000px){
+  .search-input{
+    width: 70%;
+  }
+}
+
 
 .btn {
   cursor: pointer;
@@ -106,5 +137,10 @@ export default {
   text-transform: uppercase;
   color: #ffffff;
   border: none;
+}
+@media (max-width: 1000px){
+  .btn{
+    width: 30%;
+  }
 }
 </style>

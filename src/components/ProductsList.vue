@@ -1,7 +1,17 @@
 <template>
   <section class="products-list">
     <ul class="list">
-      <ProductCard :products="pageProducts" />
+      <ProductCard
+        v-for="product in pageProducts"
+        :key="product.id"
+        :product="product"
+        @click="
+          this.$router.push({
+            name: 'Product-detail',
+            params: { id: product.id },
+          })
+        "
+      />
     </ul>
 
     <ul v-if="amountPages > 1" class="switch">
@@ -20,7 +30,7 @@
 
 <script>
 import ProductCard from "@/components/ProductsListCard.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   components: {
@@ -30,27 +40,34 @@ export default {
     selectedPage: 1,
   }),
   computed: {
+    ...mapState({
+      windowWidth: "windowWidth",
+    }),
     ...mapGetters({
       products: "products/optionsFilter",
     }),
+    pageAmountProducts() {
+      if (this.windowWidth > 1300) return 9;
+      return 10;
+    },
     amountPages() {
-      return Math.ceil(this.products.length / 9);
+      return Math.ceil(this.products.length / this.pageAmountProducts);
     },
     pageProducts() {
       return this.products.slice(
-        9 * this.selectedPage - 9,
-        9 * this.selectedPage
+        this.pageAmountProducts * this.selectedPage - this.pageAmountProducts,
+        this.pageAmountProducts * this.selectedPage
       );
     },
   },
   watch: {
     products() {
-      this.selectedPage=1
+      this.selectedPage = 1;
     },
   },
   methods: {
     onClickSwitch(page) {
-      this.selectedPage=page
+      this.selectedPage = page;
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -62,7 +79,6 @@ export default {
 
 <style scoped>
 .products-list {
-  width: 75%;
   display: flex;
   flex-direction: column;
 }

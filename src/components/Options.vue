@@ -1,10 +1,14 @@
 <template>
   <section class="card">
     <h3 class="name">Параметры</h3>
-    <OptionsDefault :name="'Наличие'" :options="availabilityOptions" />
-    <OptionsDefault :name="'Новинки'" :options="noveltyOptions" />
+    <OptionsDefault
+      :name="'Наличие'"
+      :open="false"
+      :options="availabilityOptions"
+    />
+    <OptionsDefault :name="'Новинки'" :open="true" :options="noveltyOptions" />
     <OptionsPrice />
-    <OptionsDefault :name="'Бренд'" :options="brandOptions" />
+    <OptionsDefault :name="'Бренд'" :open="false" :options="brandOptions" />
     <button @click="resetFilters()" class="card__btn">Сбросить фильтр</button>
   </section>
 </template>
@@ -43,10 +47,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  width: 25%;
-  margin-right: 5%;
-}
 
 .name {
   display: inline-block;
@@ -71,7 +71,7 @@ export default {
   text-decoration-line: underline;
   color: #c4c4c4;
 }
-.card__btn:hover{
+.card__btn:hover {
   opacity: 0.6;
 }
 </style>

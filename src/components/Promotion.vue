@@ -116,8 +116,7 @@ export default {
 }
 
 .main__img {
-  width: 125px;
-  height: 177px;
+  max-height: 207px;
   margin-bottom: 4px;
 }
 

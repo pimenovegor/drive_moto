@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <form action="send" class="form">
+    <form class="form">
       <label for="input" class="label">
         Подпишитесь на нашу рассылку <br />
         и узнавайте о акция быстрее
@@ -10,7 +10,7 @@
         type="text"
         class="form__input"
       />
-      <button class="form__btn">отправить</button>
+      <input type="submit" class="form__btn" value="Отправить" />
     </form>
 
     <ul class="info">
@@ -63,6 +63,17 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
+@media (max-width: 1000px) {
+  .footer {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 750px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+
 
 .label {
   display: block;
@@ -71,6 +82,11 @@ export default {
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
+}
+@media (max-width: 1000px) {
+  .label {
+    text-align: center;
+  }
 }
 
 .form__input {
@@ -93,14 +109,25 @@ export default {
   border: none;
 }
 
+.form__btn:active {
+  opacity: 0.6;
+}
+
 .info {
   list-style: none;
   font-size: 14px;
 }
+@media (max-width: 1000px) {
+  .info {
+    display: none;
+  }
+}
+
 .info__title {
   cursor: default;
   font-weight: 700;
 }
+
 .info__option {
   cursor: pointer;
   margin-top: 6px;

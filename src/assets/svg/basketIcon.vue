@@ -1,7 +1,7 @@
 <template>
   <svg
     width="30"
-    height="23"
+    :height="height"
     viewBox="0 0 30 23"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +20,10 @@ export default {
       type: String,
       default: "#2F3035",
     },
+    height: {
+      type: Number,
+      default: 23
+    }
   },
 };
 </script>

@@ -39,9 +39,10 @@ export default {
     ...mapActions({
       signIn: "auth/signIn",
       getBasket: "basket/getBasket",
+      getFavorite: "favorite/getFavorite"
     }),
     ...mapMutations({
-      setShowAuth: "auth/setShowAuth",
+      setShowAuth: "setShowAuth",
     }),
     async submit() {
       try {
@@ -50,6 +51,7 @@ export default {
           password: this.password.trim(),
         });
         this.getBasket();
+        this.getFavorite();
         this.setShowAuth(false)
       } catch (error) {
         if (

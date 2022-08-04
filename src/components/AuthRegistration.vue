@@ -54,7 +54,7 @@ export default {
       registration: "auth/registration",
     }),
      ...mapMutations({
-      setShowAuth: "auth/setShowAuth",
+      setShowAuth: "setShowAuth",
     }),
     async submit() {
       if (this.password.trim() !== this.repeat.trim())

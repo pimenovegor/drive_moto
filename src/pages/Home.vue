@@ -1,5 +1,5 @@
 <template>
-  <main class="main">
+  <main class="page">
     <section class="info">
       <slider :banners="banners" class="info__slider" :height="450" />
       <Promotion :product="promProduct" class="info__promotion" />
@@ -26,7 +26,10 @@ export default {
     Category,
   },
   data: () => ({
-    banners: [require('@/assets/img/banner1.png'), require('@/assets/img/banner2.jpg')],
+    banners: [
+      require("@/assets/img/banner1.png"),
+      require("@/assets/img/banner2.jpg"),
+    ],
   }),
   created() {
     this.getPromProduct();
@@ -45,22 +48,48 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  width: 90%;
+.page{
+  max-width: 1350px;
+  width: 95%;
   margin: 81px auto 0 auto;
+}
+@media (max-width: 1000px) {
+  .page{
+    margin-top: 165px;
+  }
 }
 
 .info {
   display: flex;
   justify-content: space-between;
   margin-bottom: 77px;
+  height: 450px;
 }
+
 
 .info__slider {
   width: 74%;
 }
+@media (max-width: 1000px) {
+  .info__slider {
+    display: none;
+  }
+}
+
 
 .info__promotion {
   width: 23%;
+}
+@media (max-width: 1000px){
+  .info__promotion{
+    margin: 0 auto 0 auto;
+    width: 60%;
+  }
+}
+@media (max-width: 750px){
+  .info__promotion{
+    margin: 0 auto 0 auto;
+    width: 80%;
+  }
 }
 </style>

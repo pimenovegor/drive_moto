@@ -140,7 +140,7 @@ export default {
         throw error;
       }
     },
-    getProductById: async (context, id) => {
+    getProductById: async (context, {id}) => {
       try {
         const res = await axios.get(
           `https://drive-moto-64147-default-rtdb.firebaseio.com/products.json?orderBy="id"&equalTo=${id}`,
