@@ -66,4 +66,10 @@ export default {
   -webkit-user-select: none;
   user-select: none;
 }
+input {
+  -ms-user-select: initial;
+  -moz-user-select: initial;
+  -webkit-user-select: initial;
+  user-select: initial;
+}
 </style>
