@@ -112,7 +112,8 @@ export default {
   width: 90%;
   background: #f0f0f4;
   border-radius: 3px;
-  padding: 15px 20px 15px 20px;
+  height: 50px;
+  padding: 0 20px 0 20px;
   border: none;
   outline: none;
 }

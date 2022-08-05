@@ -1,17 +1,19 @@
 <template>
   <footer class="footer">
-    <form class="form">
-      <label for="input" class="label">
+    <div class="sub">
+      <label class="label">
         Подпишитесь на нашу рассылку <br />
         и узнавайте о акция быстрее
       </label>
-      <input
-        placeholder="Введите ваш e-mail:"
-        type="text"
-        class="form__input"
-      />
-      <input type="submit" class="form__btn" value="Отправить" />
-    </form>
+      <form class="form">
+        <input
+          placeholder="Введите ваш e-mail:"
+          type="text"
+          class="form__input"
+        />
+        <input type="submit" class="form__btn" value="Отправить" />
+      </form>
+    </div>
 
     <ul class="info">
       <li class="info__title">Информация</li>
@@ -74,7 +76,6 @@ export default {
   }
 }
 
-
 .label {
   display: block;
   margin-bottom: 34px;
@@ -89,8 +90,13 @@ export default {
   }
 }
 
+.form{
+  display: flex;
+}
+
 .form__input {
-  padding: 8px 12px 8px 12px;
+  height: 33px;
+  padding: 0 12px 0 12px;
   background: #ffffff;
   border: none;
   outline: none;
@@ -98,7 +104,8 @@ export default {
 
 .form__btn {
   cursor: pointer;
-  padding: 10px 16px 10px 16px;
+  height: 33px;
+  padding: 0 16px 0 16px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-family: "SF Pro Display";

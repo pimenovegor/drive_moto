@@ -97,4 +97,10 @@ export default {
   height: 14px;
   background: #c4c4c4;
 }
+@media (max-width: 1000px) {
+  .options__checkbox {
+    width: 17px;
+    height: 17px;
+  }
+}
 </style>

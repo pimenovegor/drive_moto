@@ -9,6 +9,7 @@
     />
     <span class="value"
       >от<input
+        type="number"
         :value="priceRange[0]"
         @input="setPriceRange([$event.target.value, priceRange[1]])"
         :style="{ width: `${String(priceRange[0]).length * 8}px` }"
@@ -16,6 +17,7 @@
     /></span>
     <span class="value"
       >до<input
+        type="number"
         :value="priceRange[1]"
         @input="setPriceRange([priceRange[0], $event.target.value])"
         :style="{ width: `${String(priceRange[1]).length * 8}px` }"
@@ -66,7 +68,7 @@ export default {
 
 <style src="@vueform/slider/themes/default.css"></style>
 <style scoped>
-.options-form{
+.options-form {
   margin-bottom: 20px;
 }
 
@@ -79,6 +81,13 @@ export default {
   --slider-connect-bg: #1c62cd;
   --slider-handle-width: 7.38px;
   --slider-handle-height: 7.38px;
+}
+@media (max-width: 1000px) {
+  .slider {
+     --slider-height: 5px;
+    --slider-handle-width: 15px;
+    --slider-handle-height: 15px;
+  }
 }
 
 .value {
@@ -99,5 +108,9 @@ export default {
   font-weight: 400;
   font-size: 14px;
   text-decoration-line: underline;
+}
+.value__number::-webkit-outer-spin-button,
+.value__number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 </style>
