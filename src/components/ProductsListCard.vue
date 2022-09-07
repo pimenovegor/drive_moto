@@ -185,8 +185,18 @@ export default {
 
 .product__img {
   margin: auto;
-  max-height: 230px;
+  height: 200px;
   max-width: 90%;
+}
+@media (max-width: 900px) {
+  .product__img {
+    height: 230px;
+  }
+}
+@media (max-width: 1300px) {
+  .product__img {
+    height: 190px;
+  }
 }
 
 .product__name {
